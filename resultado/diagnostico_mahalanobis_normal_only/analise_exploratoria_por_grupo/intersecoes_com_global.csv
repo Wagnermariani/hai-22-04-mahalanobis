@@ -1,0 +1,9 @@
+Detector,Ambos,Somente_Global,Somente_Detector,Nenhum,Eventos_Exclusivos_Detector
+P1_na_MAX,34,21,0,3,
+P2_na_MAX,17,38,0,3,
+P3_na_MAX,4,51,0,3,
+P4_na_MAX,19,36,0,3,
+P1_isolado,36,19,0,3,
+P2_isolado,37,18,2,1,"A209, A212"
+P3_isolado,10,45,0,3,
+P4_isolado,45,10,2,1,"A209, A212"

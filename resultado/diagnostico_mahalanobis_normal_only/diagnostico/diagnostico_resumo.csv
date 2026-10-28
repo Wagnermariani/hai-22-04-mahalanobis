@@ -1,0 +1,2 @@
+Dataset,Espaco,Precisao_Estatistica,N_Grupos,FPR_Alvo,Tau_Global,Tau_Local,Gap_Global,Alarmes_Val_Global,Alarmes_Val_Local,Burden_Min,Burden_Mediana,Burden_Max,Fator_Pessimista_Min,Fator_Pessimista_Mediana,Fator_Pessimista_Max,Grupos_Fator_Pessimista_Maior_1
+HAI_22.04,Residuos_RNN,float64,4,0.01,199.4393418878611,135.92393580193848,132.85232124439335,1977,1977,1.0222373599410755,1.0703436106674749,1.289845384718201,0.0005853993027039057,0.0010502935432443103,0.2569823902729693,0

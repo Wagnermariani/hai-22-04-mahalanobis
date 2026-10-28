@@ -1,0 +1,40 @@
+{
+  "dataset": "HAI_22.04",
+  "origem_escores": "Residuos assinados da RNN monolitica",
+  "precisao_ajuste": "float64",
+  "modelo": "LedoitWolf(store_precision=True, assume_centered=False)",
+  "grupos": {
+    "P1": 44,
+    "P2": 24,
+    "P3": 7,
+    "P4": 11
+  },
+  "fusao_local": "MAX",
+  "calibracao": "P99 da validacao exclusivamente normal",
+  "comparador": "score > tau",
+  "limiares": {
+    "Global": 199.4393418878611,
+    "Local_MAX": 135.92393580193848
+  },
+  "limiares_reproduzidos": {
+    "Global": 199.4393418878611,
+    "Local_MAX": 135.92393580193848
+  },
+  "amostras_treino_normal": 805692,
+  "amostras_validacao_normal": 197646,
+  "amostras_teste": 360964,
+  "amostras_ataque": 12030,
+  "eventos": 58,
+  "versoes": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.15.3",
+    "sklearn": "1.7.2"
+  },
+  "sha256_diagnostico": {
+    "diagnostico_por_grupo.csv": "5d9713a1d89065585e66dc02dfb4a42646be646779b615c55430a29951430901",
+    "diagnostico_resumo.csv": "ac87726c478f6273eb4d5971828b41270cbfda0b61637d767801da5d04bdaf1a"
+  },
+  "observacao": "FPR-alvo de 1% refere-se a validacao; FPR de teste e resultado, nao orcamento recalibrado."
+}

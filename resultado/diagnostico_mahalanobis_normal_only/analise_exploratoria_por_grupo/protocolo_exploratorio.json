@@ -1,0 +1,34 @@
+{
+  "dataset": "HAI_22.04",
+  "carater": "analise exploratoria posterior a comparacao principal",
+  "treino": "residuos normais assinados da mesma RNN, LedoitWolf float64",
+  "calibracao": "normal only, quantil P99; limiares individuais diferentes do MAX",
+  "tau_global_congelado": 199.4393418878611,
+  "tau_max_congelado": 135.92393580193848,
+  "tau_individuais": {
+    "P1": 121.05853304937108,
+    "P2": 32.37579753025936,
+    "P3": 20.55532446688661,
+    "P4": 46.32550115859508
+  },
+  "alarmes_validacao_individuais": {
+    "P1": 1977,
+    "P2": 1977,
+    "P3": 1947,
+    "P4": 1977
+  },
+  "regra": "score > limiar",
+  "fusao": "MAX",
+  "contribuicao_na_MAX": "escore de cada grupo > limiar da fusao; NAO e detector individual calibrado",
+  "eventos": "58 valores Tipo, um intervalo cada",
+  "integridade_diagnostico_sha256": {
+    "diagnostico_por_grupo.csv": "5d9713a1d89065585e66dc02dfb4a42646be646779b615c55430a29951430901",
+    "diagnostico_resumo.csv": "ac87726c478f6273eb4d5971828b41270cbfda0b61637d767801da5d04bdaf1a"
+  },
+  "checagem_regressao": "matriz de confusao e 58 eventos Global/MAX identicos a avaliacao principal",
+  "amostras_teste": 360964,
+  "amostras_ataque": 12030,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "numpy": "2.2.6",
+  "pandas": "2.3.3"
+}
