@@ -51,3 +51,10 @@
 !/resultado/diagnostico_mahalanobis_normal_only/diagnostico/diagnostico_resumo.csv
 !/resultado/rnn_hai/secaoMONOLITICO/mahalanobis_global/parametros_mahalanobis_global.npz
 !/resultado/rnn_hai/secaoMONOLITICO/modelo_treinado_rnn_secaoMONOLITICO.pth
+
+# Manifesto de integridade dos arquivos externos
+!/documentacao/
+/documentacao/*
+!/documentacao/manifest_artefatos_externos_sha256.txt
+!/documentacao/ordem_features_hai_22_04.csv
+!/documentacao/manual_experimento_hai_22_04.pdf

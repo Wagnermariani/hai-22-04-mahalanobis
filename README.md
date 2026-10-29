@@ -2,7 +2,7 @@
 
 Repositório de reprodução do experimento com o **HAI 22.04**: reconstrução de resíduos assinados de uma RNN-AE monolítica, diagnóstico geométrico *normal-only* para Mahalanobis global e por processos, comparação principal com fusão MAX e análise exploratória de detectores locais isolados.
 
-> **Estado da publicação:** o código e os resultados de referência foram selecionados e preservados. Os links para os conjuntos de dados no Google Drive e a validação da execução em uma cópia limpa ainda serão acrescentados. Não considerar este pacote integralmente reproduzido em outra máquina até concluir essas verificações.
+> **Estado da documentação (29/10/2026):** os códigos e resultados históricos estão preservados; o dataset e os quatro artefatos intermediários têm pastas de distribuição no Google Drive. O roteiro foi revisado para uso de um CSV de cabeçalho com a ordem oficial das 86 variáveis, disponibilizado junto ao código. **Uma execução completa de aceitação em máquina externa limpa permanece pendente**; não há garantia de identidade numérica entre ambientes de hardware/software diferentes.
 
 ## Escopo do experimento
 
@@ -28,34 +28,42 @@ Repositório de reprodução do experimento com o **HAI 22.04**: reconstrução 
 | `codigo/avaliar_hai_mahalanobis_global_local.py` | Avaliação principal de global versus local MAX nos ataques. |
 | `codigo/analisar_hai_mahalanobis_por_grupo.py` | Análise exploratória das contribuições à MAX e dos grupos isolados. |
 | `codigo/requirements.txt` | Congelamento das dependências do ambiente Linux empregado. |
+| `documentacao/ordem_features_hai_22_04.csv` | Cabeçalho com as 86 variáveis, na ordem exata do treinamento normalizado; permite executar a reprodução principal sem o CSV de treinamento. |
+| `documentacao/manifest_artefatos_externos_sha256.txt` | SHA-256 dos quatro arquivos grandes distribuídos no ZIP do Drive. |
+| `documentacao/manual_experimento_hai_22_04.pdf` | Guia de reprodutibilidade completo, com protocolo, roadmap, programas e resultados de referência. |
 | `resultado/rnn_hai/secaoMONOLITICO/modelo_treinado_rnn_secaoMONOLITICO.pth` | Checkpoint da RNN usada na avaliação. |
 | `resultado/rnn_hai/secaoMONOLITICO/mahalanobis_global/parametros_mahalanobis_global.npz` | Parâmetros históricos, em precisão original, usados na conferência da recuperação dos resíduos. |
 | `resultado/diagnostico_mahalanobis_normal_only/` | CSVs e JSONs finais de diagnóstico, comparação e análise exploratória. |
 
-## Dados externos — links pendentes
+## Dados externos — Google Drive
 
-Os arquivos grandes **não estão versionados no GitHub**. Serão disponibilizados no Google Drive, acompanhados de nomes, diretórios relativos e, quando possível, somas de verificação:
+Os arquivos volumosos **não são versionados no GitHub**. O projeto utiliza duas pastas distintas do Google Drive:
 
-- **HAI 22.04 original:** seis arquivos `train1.csv`–`train6.csv` e quatro arquivos `test1.csv`–`test4.csv`, destinados a `dataset_trabalho/hai-22.04/`. **[INSERIR LINK DO GOOGLE DRIVE]**
-- **Resíduos assinados de treino:** `resultado/diagnostico_mahalanobis_normal_only/residuos_treino_assinados.npy` (~265 MB). **[INSERIR LINK]**
-- **Resíduos de validação:** `resultado/rnn_hai/secaoMONOLITICO/residuos_monolitico/residuos_validacao_monolitico.csv` (~410 MB). **[INSERIR LINK]**
-- **Resíduos de teste:** `resultado/rnn_hai/secaoMONOLITICO/residuos_monolitico/residuos_teste_monolitico.csv` (~737 MB). **[INSERIR LINK]**
-- **Escores originais da RNN:** `resultado/rnn_hai/secaoMONOLITICO/scores_rnn_secaoMONOLITICO.csv` (~26 MB); utilizados para a conferência do extrator. **[INSERIR LINK]**
+- **[Dataset HAI 22.04 original](https://drive.google.com/drive/folders/1tnYMmx9SmVl5bTCnU19olPxx96jJlSv6?usp=sharing):** seis arquivos `train1.csv` a `train6.csv` e quatro `test1.csv` a `test4.csv`. Coloque-os em `dataset_trabalho/hai-22.04/` para executar os fluxos B e C.
+- **[Artefatos de reprodução — ZIP e LEIAME](https://drive.google.com/drive/folders/13vkZ9Y1il3KE6tjtZ64j8WlsMjI99obn?usp=sharing):** arquivo `HAI_22_04_artefatos_reproducao.zip` com quatro entradas nos caminhos relativos já esperados pelos programas: `resultado/diagnostico_mahalanobis_normal_only/residuos_treino_assinados.npy` (~264 MiB), `resultado/rnn_hai/secaoMONOLITICO/residuos_monolitico/residuos_validacao_monolitico.csv` (~410 MiB), `resultado/rnn_hai/secaoMONOLITICO/residuos_monolitico/residuos_teste_monolitico.csv` (~736 MiB) e `resultado/rnn_hai/secaoMONOLITICO/scores_rnn_secaoMONOLITICO.csv` (~26 MiB). O LEIAME distribuído ao lado do ZIP detalha o conteúdo e os hashes.
 
-A disponibilização dos dados deve observar suas condições de uso e atribuição. **Não execute programas de preparação sobre dados preexistentes sem backup:** alguns scripts históricos gravam saídas com `to_csv()` sem bloqueio de sobrescrita.
+**SHA-256 do ZIP:**
+
+```text
+d6b2200de3f7444778412870aed58744459e1346a7abd0680679bd21d589d300
+```
+
+O manifesto dos quatro arquivos internos está em `documentacao/manifest_artefatos_externos_sha256.txt`. As condições de uso e atribuição do HAI devem ser observadas. O acesso efetivo aos links depende das permissões de compartilhamento do proprietário. **Não execute programas de preparação sobre dados preexistentes sem cópia independente:** alguns scripts históricos podem sobrescrever saídas com `to_csv()`.
 
 ## Sequência de reprodução — preservar a referência
 
 **Não executar programas diretamente na pasta de referência do GitHub.** Ela contém o checkpoint, os parâmetros históricos e os CSVs/JSONs publicados, que devem permanecer intactos. Alguns programas de preparação e treinamento escrevem resultados sem proteção de sobrescrita; os programas de diagnóstico e avaliação, ao contrário, recusam diretórios de saída existentes.
 
-Use Python compatível com `codigo/requirements.txt`. O arquivo congela o ambiente Linux utilizado (Python 3.10.12, incluindo pacotes NVIDIA/CUDA); a instalação em outras plataformas ainda não foi validada. O procedimento abaixo não substitui uma execução de aceitação em instalação limpa, ainda pendente.
+Use Python compatível com `codigo/requirements.txt`. O arquivo registra o ambiente Linux utilizado (Python 3.10.12, com dependências NVIDIA/CUDA); a instalação em outras plataformas ainda não foi validada. O procedimento abaixo não substitui uma execução de aceitação em instalação limpa, ainda pendente.
+
+O guia completo do experimento está em **[`documentacao/manual_experimento_hai_22_04.pdf`](documentacao/manual_experimento_hai_22_04.pdf)**; os comandos abaixo constituem o roteiro resumido.
 
 ### 0. Preparar uma cópia de execução independente
 
-Depois de obter o repositório, mantenha uma pasta como **referência** e crie uma **cópia de trabalho**. No exemplo, a pasta do repositório chama-se `hai_referencia`:
+Depois de clonar o repositório, mantenha uma pasta como **referência** e crie uma **cópia de trabalho**. No exemplo, a pasta clonada chama-se `hai-22-04-mahalanobis` (nome padrão do `git clone`); execute o bloco a seguir **no diretório-pai** dessa pasta:
 
 ```bash
-# Executar na pasta que contém hai_referencia. O subshell evita encerrar
+# Executar na pasta que contém hai-22-04-mahalanobis. O subshell evita encerrar
 # o terminal do usuário caso alguma verificação falhe.
 (
   set -e
@@ -63,7 +71,7 @@ Depois de obter o repositório, mantenha uma pasta como **referência** e crie u
     echo 'ERRO: hai_execucao ja existe. Nenhuma copia iniciada.'
     exit 1
   }
-  cp -a hai_referencia hai_execucao
+  cp -a hai-22-04-mahalanobis hai_execucao
   cd hai_execucao
 
   # Preservar resultados publicados sem apagá-los.
@@ -71,16 +79,22 @@ Depois de obter o repositório, mantenha uma pasta como **referência** e crie u
   mv resultado/diagnostico_mahalanobis_normal_only/diagnostico referencias_publicadas/
   mv resultado/diagnostico_mahalanobis_normal_only/avaliacao_ataques referencias_publicadas/
   mv resultado/diagnostico_mahalanobis_normal_only/analise_exploratoria_por_grupo referencias_publicadas/
-)&& cd hai_execucao
+) && cd hai_execucao
 ```
 
-**Atenção:** os comandos `mv` acima devem ser usados **somente nessa cópia recém-criada**, nunca em `hai_referencia` nem na pasta histórica do pesquisador. Eles liberam os caminhos que os programas precisam criar e conservam os resultados publicados em `referencias_publicadas/` para comparação posterior. Não repita esse preparo sobre uma pasta de execução já utilizada.
+**Atenção:** os comandos `mv` acima devem ser usados **somente nessa cópia recém-criada**, nunca em `hai-22-04-mahalanobis` nem na pasta histórica do pesquisador. Eles liberam os caminhos que os programas precisam criar e conservam os resultados publicados em `referencias_publicadas/` para comparação posterior. Não repita esse preparo sobre uma pasta de execução já utilizada.
 
 ### A. Reprodução principal a partir dos resíduos publicados (recomendada)
 
-Obtenha do Google Drive os três artefatos intermediários e coloque-os nos caminhos relativos indicados em **Dados externos**: `residuos_treino_assinados.npy`, `residuos_validacao_monolitico.csv` e `residuos_teste_monolitico.csv`.
+Baixe o ZIP dos artefatos do Google Drive. A cópia de execução já contém o arquivo de cabeçalho `documentacao/ordem_features_hai_22_04.csv`; **não é necessário gerar o treinamento normalizado nem obter os dez CSVs originais** para este fluxo. Verifique a assinatura do ZIP e extraia-o na raiz da cópia de trabalho, sem substituir arquivos preexistentes:
 
-Na cópia `hai_execucao`, já preparada e com os diretórios de saída livres:
+```bash
+sha256sum /caminho/para/HAI_22_04_artefatos_reproducao.zip
+unzip -n /caminho/para/HAI_22_04_artefatos_reproducao.zip -d .
+sha256sum -c documentacao/manifest_artefatos_externos_sha256.txt
+```
+
+O `sha256sum` do ZIP deve coincidir com o valor registrado acima, e os quatro arquivos internos devem passar na verificação do manifesto. **Execute os comandos de diagnóstico somente na cópia `hai_execucao`, com as pastas de resultados previamente liberadas**:
 
 ```bash
 python codigo/diagnosticar_hai_residuos_normal_only.py
@@ -164,4 +178,4 @@ Esses hashes também estão incorporados aos verificadores dos programas de aval
 2. O indicador pessimista maior que 1 é um **critério geométrico conservador dentro das hipóteses do modelo**, não uma garantia empírica de melhor recall ou FPR.
 3. A análise de grupos isolados é **exploratória**, planejada após conhecer o resultado da comparação principal; não constitui confirmação prospectiva da hipótese.
 4. A equivalência estrita a partir de treinamento novo não está garantida em hardware/software distintos; o checkpoint publicado define a execução de referência.
-5. Este README é um ponto de entrada. O manual completo de reprodução e a localização definitiva dos dados ainda serão adicionados antes da publicação final.
+5. Este README é o ponto de entrada. O manual completo está em [`documentacao/manual_experimento_hai_22_04.pdf`](documentacao/manual_experimento_hai_22_04.pdf); os arquivos externos e suas assinaturas são identificados acima.

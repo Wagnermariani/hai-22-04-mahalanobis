@@ -30,11 +30,7 @@ VALIDACAO = (
     "residuos_monolitico/residuos_validacao_monolitico.csv"
 )
 
-CABECALHO = (
-    BASE / "dataset_trabalho/hai-22.04/"
-    "normalizados_oficiais/treino/"
-    "train1_treino_normalizado.csv"
-)
+CABECALHO = BASE / "documentacao/ordem_features_hai_22_04.csv"
 
 REFERENCIA = (
     BASE / "resultado/rnn_hai/secaoMONOLITICO/"
